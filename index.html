@@ -3,187 +3,241 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automata GameDev Lab — Production Kits &amp; Indie QA Sprints</title>
-  <meta name="description" content="Production Godot 4 & Unity URP kits, automated headless QA harnesses, and fixed-price indie studio sprints by Juan Pablo Campo (Automata GameDev Lab · Toby Engine).">
+  <title>Automata GameDev Lab — Godot 4 &amp; Unity Production Kits</title>
+  <meta name="description" content="Production Godot 4 & Unity URP source kits, automated headless QA harnesses, and fixed-price indie studio sprints by Juan Pablo Campo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#030712; --surface:#0f172a; --border:#1e293b; --accent:#38bdf8; --emerald:#10b981; --text:#f8fafc; --muted:#94a3b8; }
-    * { box-sizing:border-box; }
-    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.55; }
-    .wrap { max-width:1120px; margin:0 auto; padding:28px 20px 64px; }
-    header { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:14px; border-bottom:1px solid var(--border); padding-bottom:20px; margin-bottom:36px; }
-    .brand { font-weight:800; font-size:18px; letter-spacing:.03em; }
-    .brand span { color:var(--accent); }
-    .pill { font-size:11px; font-weight:800; letter-spacing:.08em; padding:5px 12px; border-radius:999px; background:rgba(56,189,248,.12); color:var(--accent); border:1px solid rgba(56,189,248,.3); }
-    .hero { max-width:780px; margin-bottom:44px; }
-    .hero h1 { font-size:clamp(28px,4.5vw,44px); line-height:1.12; margin:14px 0 14px; }
-    .hero p { color:var(--muted); font-size:16px; margin:0 0 22px; }
-    .section-title { font-size:22px; margin:40px 0 18px; display:flex; align-items:center; gap:10px; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:18px; }
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px; display:flex; flex-direction:column; gap:12px; }
-    .tag { font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.08em; }
-    .card h3 { margin:0; font-size:18px; line-height:1.3; }
-    .tagline { margin:0; color:var(--muted); font-size:13.5px; }
-    .highlights { margin:0; padding-left:18px; font-size:13px; color:#cbd5e1; flex:1; }
-    .highlights li { margin-bottom:5px; }
-    .price-row { display:flex; justify-content:space-between; align-items:center; padding-top:8px; border-top:1px solid var(--border); }
-    .price { font-size:22px; font-weight:800; color:var(--emerald); }
-    .strike { font-size:13px; color:#64748b; text-decoration:line-through; margin-left:6px; }
-    .badge-launch { font-size:10px; font-weight:800; background:rgba(16,185,129,.15); color:var(--emerald); padding:2px 7px; border-radius:6px; margin-left:6px; }
-    .meta { font-size:11px; color:var(--muted); }
-    .btn { display:inline-block; text-align:center; text-decoration:none; font-weight:800; font-size:13.5px; padding:11px 16px; border-radius:10px; transition:opacity .15s; }
-    .btn.primary { background:linear-gradient(135deg,#0ea5e9,#0284c7); color:#fff; }
-    .btn.secondary { background:#1e293b; color:#e2e8f0; border:1px solid #334155; }
-    .btn:hover { opacity:.9; }
-    .sprints { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
-    footer { margin-top:56px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; }
+    :root { --bg:#F8F9FA; --surface:#FFFFFF; --ink:#0D1117; --muted:#57606A; --border:#D8DEE4; --godot:#2563EB; --unity:#0D9488; --steam:#7C3AED; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter',-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; -webkit-font-smoothing:antialiased; }
+    .wrap { max-width:1160px; margin:0 auto; padding:0 24px; }
+    .nav { position:sticky; top:0; z-index:40; background:rgba(248,249,250,.9); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+    .nav-in { height:68px; display:flex; justify-content:space-between; align-items:center; gap:14px; }
+    .brand { display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; color:var(--ink); text-decoration:none; }
+    .nav-links { display:flex; gap:18px; font-size:13.5px; font-weight:500; }
+    .nav-links a { color:var(--muted); text-decoration:none; } .nav-links a:hover { color:var(--ink); }
+    .hero { padding:60px 0 44px; border-bottom:1px solid var(--border); }
+    .eyebrow { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:600; color:var(--godot); background:#EFF6FF; border:1px solid #BFDBFE; padding:5px 12px; border-radius:999px; margin-bottom:16px; }
+    h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(2.1rem,4.2vw,3.35rem); line-height:1.06; letter-spacing:-.03em; max-width:19ch; margin-bottom:16px; }
+    .hero p { color:var(--muted); font-size:1.05rem; max-width:60ch; margin-bottom:24px; }
+    .filters { display:flex; flex-wrap:wrap; gap:8px; }
+    .fbtn { background:#fff; border:1px solid var(--border); padding:8px 16px; border-radius:999px; font-size:13px; font-weight:600; color:var(--muted); cursor:pointer; }
+    .fbtn.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+    .sec { padding:48px 0; }
+    .sec-title { font-family:'Space Grotesk',sans-serif; font-size:1.6rem; margin-bottom:20px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:18px; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px; display:flex; flex-direction:column; justify-content:space-between; gap:16px; transition:.2s; }
+    .card:hover { border-color:#8C959F; box-shadow:0 14px 32px rgba(13,17,23,.06); transform:translateY(-2px); }
+    .card-top { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px; }
+    .tag { font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; padding:4px 8px; border-radius:6px; }
+    .tag-godot { background:#EFF6FF; color:var(--godot); } .tag-unity { background:#F0FDFA; color:var(--unity); } .tag-steam { background:#F5F3FF; color:var(--steam); }
+    .card h3 { font-family:'Space Grotesk',sans-serif; font-size:1.15rem; margin-bottom:6px; }
+    .tagline { font-size:.9rem; color:var(--muted); margin-bottom:12px; }
+    .file-tree { background:#0D1117; color:#C9D1D9; font-family:'JetBrains Mono',monospace; font-size:11px; padding:12px 14px; border-radius:10px; line-height:1.6; margin-bottom:12px; overflow-x:auto; }
+    .highlights { padding-left:18px; font-size:.86rem; color:var(--muted); display:grid; gap:4px; }
+    .price-row { display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--border); padding-top:14px; margin-bottom:12px; }
+    .price { font-family:'Space Grotesk',sans-serif; font-size:1.45rem; font-weight:700; }
+    .strike { font-size:.88rem; color:#8C959F; text-decoration:line-through; margin-left:6px; }
+    .badge-launch { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:#047857; background:#ECFDF5; padding:3px 7px; border-radius:6px; margin-left:6px; }
+    .meta { font-size:12px; color:var(--muted); }
+    .btn { display:inline-flex; justify-content:center; align-items:center; width:100%; padding:11px 16px; border-radius:10px; font-weight:600; font-size:13.5px; text-decoration:none; }
+    .btn.primary { background:var(--ink); color:#fff; } .btn.primary:hover { background:var(--godot); }
+    .btn.secondary { background:#fff; color:var(--ink); border:1px solid var(--border); } .btn.secondary:hover { border-color:var(--ink); }
+    footer { border-top:1px solid var(--border); padding:32px 0 48px; font-size:13px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">AUTOMATA <span>GAMEDEV LAB</span></div>
-      <div class="pill">BY JUAN PABLO CAMPO · POWERED BY TOBY V2 ENGINE</div>
-    </header>
+  <nav class="nav"><div class="wrap nav-in">
+    <a class="brand" href="#">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="#0D1117"/><path d="M8 14H12M10 12V16M17 13H17.01M20 15H20.01" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round"/><rect x="5" y="9" width="18" height="10" rx="5" stroke="white" stroke-width="1.8"/></svg>
+      Automata GameDev Lab
+    </a>
+    <div class="nav-links">
+      <a href="#kits">Source Kits (5)</a>
+      <a href="#sprints">Indie Sprints</a>
+      <a href="https://juanpablouao.github.io/developer-utilities/" target="_blank" rel="noopener">Dev Utilities ↗</a>
+    </div>
+  </div></nav>
 
-    <section class="hero">
-      <div class="pill">COMMERCIAL LICENSE · ZERO ROYALTIES · AUTOMATED ZIP DELIVERY</div>
-      <h1>Production Godot 4 &amp; Unity Kits + Fixed-Price Indie QA Sprints</h1>
-      <p>Built by Multimedia Engineer <strong>Juan Pablo Campo</strong> and the <strong>Toby QA &amp; Systems Engine</strong>. Every kit is clean, static-typed, zero-dependency, and delivered automatically to your PayPal email within minutes.</p>
-      <a class="btn primary" href="#kits">Browse Launch Kits ($9–$15)</a>
-      <a class="btn secondary" href="#sprints" style="margin-left:8px;">Indie Studio Sprints</a>
-    </section>
+  <section class="hero"><div class="wrap">
+    <span class="eyebrow">● GODOT 4.2+ &amp; UNITY URP · VERIFIED SOURCE TREES · ZERO ROYALTIES</span>
+    <h1>Production game systems and headless QA built for shipping indie teams.</h1>
+    <p>Drop-in GDScript 2.0, C# Zero-GC, and URP HLSL kits inspected down to every file — plus fixed-price 72h engineering sprints for Steam launches.</p>
+    <div class="filters" id="filterBar">
+      <button class="fbtn active" data-f="all">All Kits (5)</button>
+      <button class="fbtn" data-f="godot">Godot 4</button>
+      <button class="fbtn" data-f="unity">Unity C# &amp; URP</button>
+      <button class="fbtn" data-f="steam">Steam QA &amp; Loc</button>
+    </div>
+  </div></section>
 
-    <h2 class="section-title" id="kits">1. Digital Production Kits (Introductory Launch Pricing)</h2>
-    <section class="grid">
-      
-            <article class="card">
-              <div class="tag">GODOT 4 · QA &amp; CI/CD</div>
-              <h3>Godot 4 Headless QA &amp; CI/CD Regression Kit</h3>
-              <p class="tagline">Run automated physics, gameplay, and crash-regression suites headlessly in GitHub Actions on every commit.</p>
-              <ul class="highlights"><li>GDScript 2.0 headless CLI test runner with JUnit/JSON exit codes</li><li>Physics invariant &amp; boundary assertion suite (NaN, tunneling, OOB)</li><li>Deterministic input recorder &amp; playback harness for bug reproduction</li><li>Ready-to-drop GitHub Actions workflow (.github/workflows/godot_qa.yml)</li></ul>
-              <div class="price-row">
-                <div>
-                  <span class="price">$9 USD</span>
-                  <span class="strike">$29</span>
-                  <span class="badge-launch">LAUNCH PRICE</span>
+  <section id="kits" class="sec"><div class="wrap">
+    <h2 class="sec-title">Production Source Kits (Instant Automated PayPal ZIP)</h2>
+    <div class="grid">
+            <article class="card kit-card" data-engine="godot">
+              <div>
+                <div class="card-top">
+                  <span class="tag tag-godot">GODOT 4 · QA &amp; CI/CD</span>
+                  <span class="meta">7 files · 4.37 KB ZIP</span>
                 </div>
-                <span class="meta">7 files · 4.37 KB ZIP</span>
+                <h3>Godot 4 Headless QA &amp; CI/CD Regression Kit</h3>
+                <p class="tagline">Run automated physics, gameplay, and crash-regression suites headlessly in GitHub Actions on every commit.</p>
+                <div class="file-tree">├─ README.md<br>├─ addons/automata_qa/test_runner.gd<br>├─ addons/automata_qa/physics_assertions.gd<br>├─ addons/automata_qa/input_playback.gd<br>├─ .github/workflows/godot_qa.yml<br>├─ COMMERCIAL_LICENSE.md<br>├─ MANIFEST.json</div>
+                <ul class="highlights"><li>GDScript 2.0 headless CLI test runner with JUnit/JSON exit codes</li><li>Physics invariant &amp; boundary assertion suite (NaN, tunneling, OOB)</li><li>Deterministic input recorder &amp; playback harness for bug reproduction</li><li>Ready-to-drop GitHub Actions workflow (.github/workflows/godot_qa.yml)</li></ul>
               </div>
-              <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Godot4+Headless+QA+Kit&amp;amount=9.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
-                Buy Instant ZIP via PayPal ($9)
-              </a>
+              <div>
+                <div class="price-row">
+                  <div>
+                    <span class="price">$9</span>
+                    <span class="strike">$29</span>
+                    <span class="badge-launch">LAUNCH</span>
+                  </div>
+                  <span class="meta">Zero Royalties · Commercial</span>
+                </div>
+                <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Godot4+Headless+QA+Kit&amp;amount=9.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
+                  Buy Instant ZIP via PayPal ($9 USD)
+                </a>
+              </div>
             </article>
             
-            <article class="card">
-              <div class="tag">UNITY URP · HLSL SHADERS</div>
-              <h3>Unity URP Production Shader Pack (4 HLSL Shaders)</h3>
-              <p class="tagline">4 SRP-Batcher compatible HLSL shaders (Dissolve, Stylized Water, Cel-Outline, Retro CRT) tuned for 60 FPS on Steam Deck &amp; Mobile.</p>
-              <ul class="highlights"><li>SRP Batcher compatible CBUFFERs (zero material batch-breaking)</li><li>Edge-Glow Dissolve + Stylized Fresnel Water + Cel-Shading + Retro CRT</li><li>Zero-allocation C# MaterialPropertyBlock controller included</li><li>Tested for Unity 2022 LTS &amp; Unity 6 URP</li></ul>
-              <div class="price-row">
-                <div>
-                  <span class="price">$9 USD</span>
-                  <span class="strike">$25</span>
-                  <span class="badge-launch">LAUNCH PRICE</span>
+            <article class="card kit-card" data-engine="unity">
+              <div>
+                <div class="card-top">
+                  <span class="tag tag-unity">UNITY URP · HLSL SHADERS</span>
+                  <span class="meta">8 files · 6.09 KB ZIP</span>
                 </div>
-                <span class="meta">8 files · 6.09 KB ZIP</span>
+                <h3>Unity URP Production Shader Pack (4 HLSL Shaders)</h3>
+                <p class="tagline">4 SRP-Batcher compatible HLSL shaders (Dissolve, Stylized Water, Cel-Outline, Retro CRT) tuned for 60 FPS on Steam Deck &amp; Mobile.</p>
+                <div class="file-tree">├─ README.md<br>├─ Shaders/URP_EdgeGlowDissolve.shader<br>├─ Shaders/URP_StylizedWater.shader<br>├─ Shaders/URP_CelOutline.shader<br>├─ Shaders/URP_RetroCRT.shader<br>├─ Scripts/ShaderFXController.cs<br>├─ COMMERCIAL_LICENSE.md</div>
+                <ul class="highlights"><li>SRP Batcher compatible CBUFFERs (zero material batch-breaking)</li><li>Edge-Glow Dissolve + Stylized Fresnel Water + Cel-Shading + Retro CRT</li><li>Zero-allocation C# MaterialPropertyBlock controller included</li><li>Tested for Unity 2022 LTS &amp; Unity 6 URP</li></ul>
               </div>
-              <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Unity+URP+Shader+Pack&amp;amount=9.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
-                Buy Instant ZIP via PayPal ($9)
-              </a>
+              <div>
+                <div class="price-row">
+                  <div>
+                    <span class="price">$9</span>
+                    <span class="strike">$25</span>
+                    <span class="badge-launch">LAUNCH</span>
+                  </div>
+                  <span class="meta">Zero Royalties · Commercial</span>
+                </div>
+                <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Unity+URP+Shader+Pack&amp;amount=9.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
+                  Buy Instant ZIP via PayPal ($9 USD)
+                </a>
+              </div>
             </article>
             
-            <article class="card">
-              <div class="tag">UNITY C# · ZERO-GC ARCHITECTURE</div>
-              <h3>Unity Zero-GC Core Systems Kit (C#)</h3>
-              <p class="tagline">Eliminate GC frame spikes with production Object Pooling, ScriptableObject Event Bus, and AES Encrypted Save/Load.</p>
-              <ul class="highlights"><li>Pre-warmed Zero-GC Generic Component Pool (zero runtime Instantiate spikes)</li><li>Decoupled ScriptableObject Event Channel architecture (zero scene coupling)</li><li>AES-256 encrypted JSON Save/Load with atomic write-and-swap protection</li><li>Clean C# namespaces ready for Unity 2022 LTS &amp; Unity 6</li></ul>
-              <div class="price-row">
-                <div>
-                  <span class="price">$12 USD</span>
-                  <span class="strike">$35</span>
-                  <span class="badge-launch">LAUNCH PRICE</span>
+            <article class="card kit-card" data-engine="unity">
+              <div>
+                <div class="card-top">
+                  <span class="tag tag-unity">UNITY C# · ZERO-GC ARCHITECTURE</span>
+                  <span class="meta">6 files · 3.28 KB ZIP</span>
                 </div>
-                <span class="meta">6 files · 3.28 KB ZIP</span>
+                <h3>Unity Zero-GC Core Systems Kit (C#)</h3>
+                <p class="tagline">Eliminate GC frame spikes with production Object Pooling, ScriptableObject Event Bus, and AES Encrypted Save/Load.</p>
+                <div class="file-tree">├─ README.md<br>├─ Runtime/ZeroGCPool.cs<br>├─ Runtime/GameEventChannel.cs<br>├─ Runtime/EncryptedSaveSystem.cs<br>├─ COMMERCIAL_LICENSE.md<br>├─ MANIFEST.json</div>
+                <ul class="highlights"><li>Pre-warmed Zero-GC Generic Component Pool (zero runtime Instantiate spikes)</li><li>Decoupled ScriptableObject Event Channel architecture (zero scene coupling)</li><li>AES-256 encrypted JSON Save/Load with atomic write-and-swap protection</li><li>Clean C# namespaces ready for Unity 2022 LTS &amp; Unity 6</li></ul>
               </div>
-              <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Unity+ZeroGC+Systems+Kit&amp;amount=12.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
-                Buy Instant ZIP via PayPal ($12)
-              </a>
+              <div>
+                <div class="price-row">
+                  <div>
+                    <span class="price">$12</span>
+                    <span class="strike">$35</span>
+                    <span class="badge-launch">LAUNCH</span>
+                  </div>
+                  <span class="meta">Zero Royalties · Commercial</span>
+                </div>
+                <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Unity+ZeroGC+Systems+Kit&amp;amount=12.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
+                  Buy Instant ZIP via PayPal ($12 USD)
+                </a>
+              </div>
             </article>
             
-            <article class="card">
-              <div class="tag">GODOT 4 · GDSCRIPT 2.0</div>
-              <h3>Godot 4 Modular Gameplay &amp; Systems Kit</h3>
-              <p class="tagline">Skip weeks of boilerplate: Coyote-time Platformer Controller, Finite State Machine, Resource Inventory, and Safe Save Manager.</p>
-              <ul class="highlights"><li>Responsive CharacterBody2D controller with Coyote Time &amp; Jump Buffering</li><li>Zero-coupling Node-based Finite State Machine (FSM)</li><li>Stackable Resource-driven Inventory with signals</li><li>Atomic JSON Save/Load manager with backup rotation</li></ul>
-              <div class="price-row">
-                <div>
-                  <span class="price">$12 USD</span>
-                  <span class="strike">$35</span>
-                  <span class="badge-launch">LAUNCH PRICE</span>
+            <article class="card kit-card" data-engine="godot">
+              <div>
+                <div class="card-top">
+                  <span class="tag tag-godot">GODOT 4 · GDSCRIPT 2.0</span>
+                  <span class="meta">8 files · 3.76 KB ZIP</span>
                 </div>
-                <span class="meta">8 files · 3.76 KB ZIP</span>
+                <h3>Godot 4 Modular Gameplay &amp; Systems Kit</h3>
+                <p class="tagline">Skip weeks of boilerplate: Coyote-time Platformer Controller, Finite State Machine, Resource Inventory, and Safe Save Manager.</p>
+                <div class="file-tree">├─ README.md<br>├─ scripts/player_platformer_controller.gd<br>├─ scripts/state.gd<br>├─ scripts/state_machine.gd<br>├─ scripts/inventory_system.gd<br>├─ scripts/save_manager.gd<br>├─ COMMERCIAL_LICENSE.md</div>
+                <ul class="highlights"><li>Responsive CharacterBody2D controller with Coyote Time &amp; Jump Buffering</li><li>Zero-coupling Node-based Finite State Machine (FSM)</li><li>Stackable Resource-driven Inventory with signals</li><li>Atomic JSON Save/Load manager with backup rotation</li></ul>
               </div>
-              <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Godot4+Core+Gameplay+Kit&amp;amount=12.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
-                Buy Instant ZIP via PayPal ($12)
-              </a>
+              <div>
+                <div class="price-row">
+                  <div>
+                    <span class="price">$12</span>
+                    <span class="strike">$35</span>
+                    <span class="badge-launch">LAUNCH</span>
+                  </div>
+                  <span class="meta">Zero Royalties · Commercial</span>
+                </div>
+                <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Godot4+Core+Gameplay+Kit&amp;amount=12.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
+                  Buy Instant ZIP via PayPal ($12 USD)
+                </a>
+              </div>
             </article>
             
-            <article class="card">
-              <div class="tag">STEAM LAUNCH · QA &amp; LOCALIZATION</div>
-              <h3>Indie Steam Launch QA, Perf &amp; ES-LATAM Localization Kit</h3>
-              <p class="tagline">Python CLI suite for indie studios: Steam review bug-triage, CSV/JSON localization linter, frame-time spike profiler, and Steam Deck checklist.</p>
-              <ul class="highlights"><li>Steam Store API review bug-triage script (clusters crashes, softlocks &amp; FPS complaints)</li><li>Zero-dependency Localization CSV/JSON linter (catches missing keys &amp; broken placeholders)</li><li>Frame-time P95/P99 &amp; GC spike analyzer from engine CSV telemetry</li><li>Actionable Steam Deck Verified pre-submission QA checklist</li></ul>
-              <div class="price-row">
-                <div>
-                  <span class="price">$15 USD</span>
-                  <span class="strike">$45</span>
-                  <span class="badge-launch">LAUNCH PRICE</span>
+            <article class="card kit-card" data-engine="steam">
+              <div>
+                <div class="card-top">
+                  <span class="tag tag-steam">STEAM LAUNCH · QA &amp; LOCALIZATION</span>
+                  <span class="meta">7 files · 4.56 KB ZIP</span>
                 </div>
-                <span class="meta">7 files · 4.56 KB ZIP</span>
+                <h3>Indie Steam Launch QA, Perf &amp; ES-LATAM Localization Kit</h3>
+                <p class="tagline">Python CLI suite for indie studios: Steam review bug-triage, CSV/JSON localization linter, frame-time spike profiler, and Steam Deck checklist.</p>
+                <div class="file-tree">├─ README.md<br>├─ tools/review_bug_triage.py<br>├─ tools/loc_validator.py<br>├─ tools/perf_telemetry_parser.py<br>├─ docs/STEAM_DECK_QA_CHECKLIST.md<br>├─ COMMERCIAL_LICENSE.md<br>├─ MANIFEST.json</div>
+                <ul class="highlights"><li>Steam Store API review bug-triage script (clusters crashes, softlocks &amp; FPS complaints)</li><li>Zero-dependency Localization CSV/JSON linter (catches missing keys &amp; broken placeholders)</li><li>Frame-time P95/P99 &amp; GC spike analyzer from engine CSV telemetry</li><li>Actionable Steam Deck Verified pre-submission QA checklist</li></ul>
               </div>
-              <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Indie+Steam+Launch+QA+Loc+Kit&amp;amount=15.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
-                Buy Instant ZIP via PayPal ($15)
-              </a>
+              <div>
+                <div class="price-row">
+                  <div>
+                    <span class="price">$15</span>
+                    <span class="strike">$45</span>
+                    <span class="badge-launch">LAUNCH</span>
+                  </div>
+                  <span class="meta">Zero Royalties · Commercial</span>
+                </div>
+                <a class="btn primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=juanpablo12campo@gmail.com&amp;item_name=Toby+Indie+Steam+Launch+QA+Loc+Kit&amp;amount=15.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener">
+                  Buy Instant ZIP via PayPal ($15 USD)
+                </a>
+              </div>
             </article>
-            
-    </section>
+            </div>
+  </div></section>
 
-    <h2 class="section-title" id="sprints">2. Fixed-Price B2B Sprints for Indie Studios</h2>
-    <section class="sprints">
+  <section id="sprints" class="sec" style="padding-top:8px;"><div class="wrap">
+    <h2 class="sec-title">Fixed-Price Indie Studio Sprints (No Retainers)</h2>
+    <div class="grid">
       <div class="card">
-        <div class="tag">48–72H TURNAROUND</div>
-        <h3>Automated QA &amp; Crash-Hunt Sprint</h3>
-        <p class="tagline">Headless regression suite + physics/save-corruption stress tests + reproducible bug traces for Godot 4 or Unity builds.</p>
-        <div class="price-row"><span class="price">$250 USD</span><span class="meta">Fixed Milestone</span></div>
-        <a class="btn secondary" href="mailto:juanpablo12campo@gmail.com?subject=Indie%20QA%20Sprint%20Inquiry">Request Sprint</a>
+        <div><span class="tag tag-godot">72H DELIVERY</span><h3 style="margin-top:10px;">Automated Headless QA &amp; CI Setup</h3><p class="tagline">Full GitHub Actions regression suite for Godot 4 or Unity with crash &amp; physics checks.</p></div>
+        <div><div class="price-row"><span class="price">$250</span><span class="meta">Fixed Milestone</span></div><a class="btn secondary" href="mailto:juanpablo12campo@gmail.com?subject=Headless%20QA%20Sprint%20Inquiry">Request Sprint →</a></div>
       </div>
       <div class="card">
-        <div class="tag">STEAM DECK &amp; 60 FPS</div>
-        <h3>Shader &amp; Performance Optimization Pass</h3>
-        <p class="tagline">SRP-Batcher shader audit, GC spike elimination, and frame-time P99 profiling report with drop-in fixes.</p>
-        <div class="price-row"><span class="price">$300 USD</span><span class="meta">Fixed Milestone</span></div>
-        <a class="btn secondary" href="mailto:juanpablo12campo@gmail.com?subject=Shader%20and%20Perf%20Pass%20Inquiry">Request Sprint</a>
+        <div><span class="tag tag-unity">URP &amp; GC OPTIMIZATION</span><h3 style="margin-top:10px;">Shader &amp; Frame-Time Perf Pass</h3><p class="tagline">Eliminate GC stutter spikes and deliver bespoke URP/Godot stylized shaders in 72h.</p></div>
+        <div><div class="price-row"><span class="price">$300</span><span class="meta">Fixed Milestone</span></div><a class="btn secondary" href="mailto:juanpablo12campo@gmail.com?subject=Shader%20and%20Perf%20Pass%20Inquiry">Request Sprint →</a></div>
       </div>
       <div class="card">
-        <div class="tag">HISPANIC MARKET GROWTH</div>
-        <h3>ES-LATAM Localization + Context QA</h3>
-        <p class="tagline">Native Spanish localization for indie Steam titles + automated placeholder/overflow validation.</p>
-        <div class="price-row"><span class="price">$150 USD</span><span class="meta">Fixed Milestone</span></div>
-        <a class="btn secondary" href="mailto:juanpablo12campo@gmail.com?subject=ES-LATAM%20Localization%20Inquiry">Request Sprint</a>
+        <div><span class="tag tag-steam">HISPANIC MARKET GROWTH</span><h3 style="margin-top:10px;">ES-LATAM Localization + Context QA</h3><p class="tagline">Native Spanish localization for indie Steam titles + automated placeholder/overflow validation.</p></div>
+        <div><div class="price-row"><span class="price">$150</span><span class="meta">Fixed Milestone</span></div><a class="btn secondary" href="mailto:juanpablo12campo@gmail.com?subject=ES-LATAM%20Localization%20Inquiry">Request Sprint →</a></div>
       </div>
-      <div class="card">
-        <div class="tag">PRESS &amp; PUBLISHERS</div>
-        <h3>Interactive Steam Press Kit &amp; Web Landing</h3>
-        <p class="tagline">Fast, responsive press kit &amp; trailer landing page hosted cleanly for publishers and Steam Next Fest.</p>
-        <div class="price-row"><span class="price">$200 USD</span><span class="meta">Fixed Milestone</span></div>
-        <a class="btn secondary" href="mailto:juanpablo12campo@gmail.com?subject=Game%20Press%20Kit%20Landing%20Inquiry">Request Sprint</a>
-      </div>
-    </section>
+    </div>
+  </div></section>
 
-    <footer>
-      <div><strong>Automata GameDev Lab</strong> · Juan Pablo Campo (Multimedia Engineer, UAO) · GitHub: <a href="https://github.com/JuanPabloUAO" style="color:#38bdf8;">@JuanPabloUAO</a></div>
-      <div>Direct Support &amp; Fulfillment: <code>juanpablo12campo@gmail.com</code></div>
-    </footer>
-  </div>
+  <footer class="wrap">
+    <span><strong>Automata GameDev Lab (Toby V3.0)</strong> · Juan Pablo Campo (UAO)</span>
+    <span>Direct Support: <code>juanpablo12campo@gmail.com</code> · <a href="https://juanpablouao.github.io/developer-utilities/" style="color:var(--ink);">Automata Dev Utilities</a></span>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.fbtn').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('.fbtn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      const f = b.dataset.f;
+      document.querySelectorAll('.kit-card').forEach(c => c.style.display = (f === 'all' || c.dataset.engine === f) ? 'flex' : 'none');
+    }));
+  </script>
 </body>
 </html>
